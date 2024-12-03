@@ -77,7 +77,7 @@ Start the production server:
 
 ### ✨ Demo
 
-Check out the live demo: [Demo](https://garveyshahouma-portfolio.vercel.app/)
+Check out the live demo: [Demo](https://ouma-portfolio-g46m.vercel.app/)
 
 
 ## 📬 Contact
