@@ -9,12 +9,13 @@ const TAB_DATA = [
     id: "skills",
     content: (
       <ul className="list-disc pl-2">
+        <li>Golang</li>
         <li>Node.js</li>
-        <li>Express</li>
-        <li>PostgreSQL</li>
-        <li>Sequelize</li>
         <li>JavaScript</li>
         <li>React</li>
+        <li>Docker</li>
+        {/* <li>Python</li> */}
+        {/* <li>Rust</li> */}
       </ul>
     ),
   },
@@ -23,21 +24,21 @@ const TAB_DATA = [
     id: "education",
     content: (
       <ul className="list-disc pl-2">
-        <li>Fullstack Academy of Code</li>
-        <li>University of California, Santa Cruz</li>
+        {/* <li>Fullstack Academy of Code</li> */}
+        <li>Zone01Kisumu, Kisumu, Kenya</li>
       </ul>
     ),
   },
-  {
-    title: "Certifications",
-    id: "certifications",
-    content: (
-      <ul className="list-disc pl-2">
-        <li>AWS Cloud Practitioner</li>
-        <li>Google Professional Cloud Developer</li>
-      </ul>
-    ),
-  },
+  // {
+  //   title: "Certifications",
+  //   id: "certifications",
+  //   content: (
+  //     <ul className="list-disc pl-2">
+  //       <li>AWS Cloud Practitioner</li>
+  //       <li>Google Professional Cloud Developer</li>
+  //     </ul>
+  //   ),
+  // },
 ];
 
 const AboutSection = () => {
@@ -57,12 +58,9 @@ const AboutSection = () => {
         <div className="mt-4 md:mt-0 text-left flex flex-col h-full">
           <h2 className="text-4xl font-bold text-white mb-4">About Me</h2>
           <p className="text-base lg:text-lg">
-            I am a full stack web developer with a passion for creating
-            interactive and responsive web applications. I have experience
-            working with JavaScript, React, Redux, Node.js, Express, PostgreSQL,
-            Sequelize, HTML, CSS, and Git. I am a quick learner and I am always
-            looking to expand my knowledge and skill set. I am a team player and
-            I am excited to work with others to create amazing applications.
+            I am a passionate developer with a knack for crafting robust solutions and engaging user experiences. I specialize in Go (Golang), building efficient backend systems, and enhancing the frontend with UI/UX design principles.
+            From tackling programming challenges to leading community-driven projects like BiasharaID, I thrive on solving complex problems and creating tools that empower others. My journey spans developing web applications, designing intuitive user interfaces, and diving into programming languages like Rust and JavaScript to expand my expertise.
+            Whether it's architecting APIs, creating interactive platforms, or mentoring others in coding fundamentals, I am driven by innovation and continuous learning. Let’s collaborate to bring your vision to life!.
           </p>
           <div className="flex flex-row justify-start mt-8">
             <TabButton
@@ -84,7 +82,7 @@ const AboutSection = () => {
               active={tab === "certifications"}
             >
               {" "}
-              Certifications{" "}
+              {/* Certifications{" "} */}
             </TabButton>
           </div>
           <div className="mt-8">
