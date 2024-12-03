@@ -60,7 +60,7 @@ const AboutSection = () => {
           <p className="text-base lg:text-lg">
             I am a passionate developer with a knack for crafting robust solutions and engaging user experiences. I specialize in Go (Golang), building efficient backend systems, and enhancing the frontend with UI/UX design principles.
             From tackling programming challenges to leading community-driven projects like BiasharaID, I thrive on solving complex problems and creating tools that empower others. My journey spans developing web applications, designing intuitive user interfaces, and diving into programming languages like Rust and JavaScript to expand my expertise.
-            Whether it's architecting APIs, creating interactive platforms, or mentoring others in coding fundamentals, I am driven by innovation and continuous learning. Let’s collaborate to bring your vision to life!.
+            Whether it&apos;s architecting APIs, creating interactive platforms, or mentoring others in coding fundamentals, I am driven by innovation and continuous learning. Let&apos;s collaborate to bring your vision to life!.
           </p>
           <div className="flex flex-row justify-start mt-8">
             <TabButton
