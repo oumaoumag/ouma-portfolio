@@ -8,10 +8,10 @@ const projectsData = [
   {
     id: 1,
     title: "React Portfolio Website",
-    description: "Project 1 description",
+    description: "This my portfolio website! The project is built with Next.js, showcasing my skills, projects, and professional journey.",
     image: "/images/projects/1.png",
-    tag: ["All", "Web"],
-    gitUrl: "/",
+    tag: ["All", "Web", "Next.js", "React"],
+    gitUrl: "https://github.com/garveyshah/ouma-portfolio",
     previewUrl: "/",
   },
   {
