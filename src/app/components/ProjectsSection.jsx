@@ -23,15 +23,15 @@ const projectsData = [
     gitUrl: "/",
     previewUrl: "https://codeujuzi-github-io.onrender.com/",
   },
-  // {
-  //   id: 3,
-  //   title: "E-commerce Application",
-  //   description: "Project 3 description",
-  //   image: "/images/projects/3.png",
-  //   tag: ["All", "Web"],
-  //   gitUrl: "/",
-  //   previewUrl: "/",
-  // },
+  {
+    id: 3,
+    title: "Music Tracker",
+    description: "Explore details about your favorite artists, their tours, and more.",
+    image: "/images/projects/groupie.png",
+    tag: ["All", "Web"],
+    gitUrl: "/",
+    previewUrl: "/",
+  },
   // {
   //   id: 4,
   //   title: "Food Ordering Application",
@@ -95,11 +95,11 @@ const ProjectsSection = () => {
           name="Web"
           isSelected={tag === "Web"}
         />
-        <ProjectTag
+        {/* <ProjectTag
           onClick={handleTagChange}
           name="Mobile"
           isSelected={tag === "Mobile"}
-        />
+        /> */}
       </div>
       <ul ref={ref} className="grid md:grid-cols-3 gap-8 md:gap-12">
         {filteredProjects.map((project, index) => (
