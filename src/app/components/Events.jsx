@@ -4,12 +4,12 @@ import { Calendar, MapPin } from 'lucide-react';
 const Events = () => {
   const events = [
     {
-      title: "Gophercon-Africa 2024",
+      title: "Google I/O Extended Hackathon 2024",
       role: "Participant",
       topic: "Annual conference uniting Go enthusiasts for innovation, collaboration, and ecosystem progress across Africa.",
       date: "October 2024",
-      location: "Ihub, Nairobi",
-      image: "/images/events/inhouse-hackathon.jpeg",
+      location: "Lakhub, Kisumu",
+      image: "/images/events/hackathone.jpeg",
     },
     {
       title: "Google Developer Groups(GDG) 2024",
@@ -28,12 +28,12 @@ const Events = () => {
       image: "/images/events/gophers-meetup.jpeg"
     },
     {
-      title: "Pint of Science 2023",
-      role: "Panelist",
-      topic: "AI in Modern Applications",
+      title: "Kenya National Artificial Intelligence Strategy Townhall",
+      role: "Group Session Moderator",
+      topic: "A public participation event to assist in the development of Kenya's National Articial Intelligence (AI) Strategy",
       date: "May 2024",
       location: "Lakehub, Kisumu",
-      image: "/images/events/hackathone.jpeg"
+      image: "/images/events/ai-townhall.jpeg"
     }
   ];
 
@@ -45,8 +45,7 @@ const Events = () => {
           {events.map((event, index) => (
             <div
               key={index}
-              className="group relative overflow-hidden rounded-xl bg-gray-800/50 backdrop-blur-md
-              border border-gray-700 hover:border-blue-500/50 transition-all duration-300"
+              className="group relative overflow-hidden rounded-xl  hover:border-blue-500/50 transition-all duration-300"
             >
               <div className="aspect-video overflow-hidden relative">
                 <Image
