@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <!-- Background with gradient -->
+  <rect width="800" height="600" fill="#1a1a1a" />
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4CA7FF" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#4CA7FF" stop-opacity="0.3" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bgGradient)" />
+  
+  <!-- Project Title -->
+  <text x="400" y="70" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Kisumu Language</text>
+  <text x="400" y="110" font-family="Arial, sans-serif" font-size="20" fill="#CCCCCC" text-anchor="middle">Interpreter Built in Go</text>
+  
+  <!-- Main Illustration: Language Interpreter Components -->
+  
+  <!-- Top: Code Editor and REPL -->
+  <g transform="translate(100, 150)">
+    <!-- REPL Terminal Window -->
+    <rect x="0" y="0" width="600" height="150" rx="5" fill="#121212" stroke="#333333" stroke-width="2" />
+    
+    <!-- Terminal Header -->
+    <rect x="0" y="0" width="600" height="25" rx="5" fill="#333333" />
+    <circle cx="15" cy="12.5" r="5" fill="#FF5F56" />
+    <circle cx="35" cy="12.5" r="5" fill="#FFBD2E" />
+    <circle cx="55" cy="12.5" r="5" fill="#27C93F" />
+    <text x="300" y="17" font-family="monospace" font-size="12" fill="#FFFFFF" text-anchor="middle">Kisumu REPL</text>
+    
+    <!-- REPL Content -->
+    <text x="10" y="45" font-family="monospace" font-size="14" fill="#4CA7FF" text-anchor="start">> let x = 5;</text>
+    <text x="10" y="70" font-family="monospace" font-size="14" fill="#FFFFFF" text-anchor="start">undefined</text>
+    <text x="10" y="95" font-family="monospace" font-size="14" fill="#4CA7FF" text-anchor="start">> let y = x * 2;</text>
+    <text x="10" y="120" font-family="monospace" font-size="14" fill="#FFFFFF" text-anchor="start">undefined</text>
+    <text x="10" y="145" font-family="monospace" font-size="14" fill="#4CA7FF" text-anchor="start">> y</text>
+    <text x="30" y="145" font-family="monospace" font-size="14" fill="#FFFFFF" text-anchor="start">10</text>
+  </g>
+  
+  <!-- Bottom: Interpreter Architecture Components -->
+  <g transform="translate(150, 320)">
+    <!-- Component Boxes -->
+    <!-- Lexer -->
+    <rect x="0" y="0" width="120" height="60" rx="5" fill="#4CA7FF" opacity="0.8" />
+    <text x="60" y="35" font-family="Arial, sans-serif" font-size="16" fill="#FFFFFF" text-anchor="middle">Lexer</text>
+    
+    <!-- Parser -->
+    <rect x="200" y="0" width="120" height="60" rx="5" fill="#4CA7FF" opacity="0.8" />
+    <text x="260" y="35" font-family="Arial, sans-serif" font-size="16" fill="#FFFFFF" text-anchor="middle">Parser</text>
+    
+    <!-- AST -->
+    <rect x="400" y="0" width="120" height="60" rx="5" fill="#4CA7FF" opacity="0.8" />
+    <text x="460" y="35" font-family="Arial, sans-serif" font-size="16" fill="#FFFFFF" text-anchor="middle">AST</text>
+    
+    <!-- Evaluator -->
+    <rect x="200" y="120" width="120" height="60" rx="5" fill="#4CA7FF" opacity="0.8" />
+    <text x="260" y="155" font-family="Arial, sans-serif" font-size="16" fill="#FFFFFF" text-anchor="middle">Evaluator</text>
+    
+    <!-- Connection Arrows -->
+    <path d="M 120 30 L 200 30" stroke="#FFFFFF" stroke-width="3" fill="none" marker-end="url(#arrowhead)" />
+    <path d="M 320 30 L 400 30" stroke="#FFFFFF" stroke-width="3" fill="none" marker-end="url(#arrowhead)" />
+    <path d="M 460 60 L 460 90 L 320 90 L 320 120" stroke="#FFFFFF" stroke-width="3" fill="none" marker-end="url(#arrowhead)" />
+    <path d="M 200 150 L 60 150 L 60 60" stroke="#FFFFFF" stroke-width="3" fill="none" marker-end="url(#arrowhead)" />
+    
+    <!-- Arrowhead definition -->
+    <defs>
+      <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#FFFFFF" />
+      </marker>
+    </defs>
+  </g>
+  
+  <!-- Tokenization Example -->
+  <g transform="translate(200, 240)">
+    <text x="0" y="0" font-family="monospace" font-size="12" fill="#AAAAAA" text-anchor="start">let x = 5; → [LET, IDENT("x"), EQUAL, INT(5), SEMICOLON]</text>
+  </g>
+  
+  <!-- Tags -->
+  <g transform="translate(400, 530)">
+    <rect x="-280" y="0" width="100" height="30" rx="15" fill="#4CA7FF" opacity="0.8" />
+    <text x="-230" y="20" font-family="Arial, sans-serif" font-size="14" fill="#FFFFFF" text-anchor="middle">Interpreter</text>
+    
+    <rect x="-170" y="0" width="80" height="30" rx="15" fill="#54AD64" opacity="0.8" />
+    <text x="-130" y="20" font-family="Arial, sans-serif" font-size="14" fill="#FFFFFF" text-anchor="middle">Go</text>
+    
+    <rect x="-80" y="0" width="140" height="30" rx="15" fill="#FF7E33" opacity="0.8" />
+    <text x="-10" y="20" font-family="Arial, sans-serif" font-size="14" fill="#FFFFFF" text-anchor="middle">Language Design</text>
+  </g>
+</svg> 

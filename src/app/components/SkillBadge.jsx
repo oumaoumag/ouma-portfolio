@@ -16,7 +16,15 @@ import {
   SiNodedotjs,
   SiFigma,
   SiDocker,
+  SiTailwindcss,
+  SiWebassembly,
+  SiWeb3Dotjs,
+  SiAlgolia,
+  SiLeetcode,
+  SiRedis,
 } from "react-icons/si";
+import { FaCode, FaNetworkWired, FaMicrochip, FaBrain } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const getSkillIcon = (name) => {
   const iconProps = { className: "w-6 h-6" };
@@ -30,49 +38,83 @@ const getSkillIcon = (name) => {
     rust: SiRust,
     c: SiC,
     css: SiCss3,
-    html5: SiHtml5,
+    html: SiHtml5,
+    "html/css": SiHtml5,
     react: SiReact,
     typescript: SiTypescript,
     "node.js": SiNodedotjs,
     "ui/ux": SiFigma,
     docker: SiDocker,
+    tailwind: SiTailwindcss,
+    webassembly: SiWebassembly,
+    web3: SiWeb3Dotjs,
+    algorithms: SiLeetcode,
+    redis: SiRedis,
+    interpreters: FaCode,
+    compilers: FaCode,
+    "system design": FaNetworkWired,
   };
 
-  const IconComponent = icons[normalizedName];
-  return IconComponent ? <IconComponent {...iconProps} /> : null;
+  const IconComponent = icons[normalizedName] || FaBrain; // Default icon
+  return <IconComponent {...iconProps} />;
 };
 
 const SkillBadge = ({ name, level }) => {
   const getLevelColor = () => {
     switch (level) {
       case "Expert":
-        return "from-emerald-500 to-emerald-700";
+        return {
+          bg: "from-primary-500 to-primary-700",
+          border: "border-primary-300",
+          shadow: "shadow-primary-500/20"
+        };
       case "Advanced":
-        return "from-blue-500 to-blue-700";
+        return {
+          bg: "from-secondary-500 to-secondary-700",
+          border: "border-secondary-300",
+          shadow: "shadow-secondary-500/20"
+        };
       case "Intermediate":
-        return "from-purple-500 to-purple-700";
+        return {
+          bg: "from-water to-blue-700",
+          border: "border-blue-300",
+          shadow: "shadow-blue-500/20"
+        };
       default:
-        return "from-gray-500 to-gray-700";
+        return {
+          bg: "from-gray-500 to-gray-700",
+          border: "border-gray-300",
+          shadow: "shadow-gray-500/20"
+        };
     }
   };
 
+  const colorScheme = getLevelColor();
+  
   return (
-    <div
+    <motion.div
+      whileHover={{ scale: 1.05, y: -5 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
       className={`
-        px-4 py-2 rounded-lg
-        bg-gradient-to-r ${getLevelColor()}
-        transform hover:scale-105 transition-all duration-300
+        px-4 py-3 rounded-lg
+        bg-gradient-to-r ${colorScheme.bg}
+        border border-opacity-20 ${colorScheme.border}
+        shadow-lg ${colorScheme.shadow}
         cursor-default
         flex items-center gap-3
         text-white
       `}
     >
-      <div className="flex-shrink-0">{getSkillIcon(name)}</div>
+      <div className="flex-shrink-0 bg-dark-accent p-2 rounded-md">
+        {getSkillIcon(name)}
+      </div>
       <div>
         <div className="font-semibold">{name}</div>
         <div className="text-xs opacity-75">{level}</div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

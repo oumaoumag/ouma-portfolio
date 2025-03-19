@@ -38,34 +38,34 @@ const Events = () => {
   ];
 
   return (
-    <section className="py-20 px-4" id="events">
+    <section className="py-8 px-4" id="events">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Speaking & Events</h2>
-        <div className="grid md:grid-cols-2 gap-8">
+        <h2 className="text-3xl font-bold mb-6 text-center">Speaking & Events</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {events.map((event, index) => (
             <div
               key={index}
-              className="group relative overflow-hidden rounded-xl  hover:border-blue-500/50 transition-all duration-300"
+              className="group relative overflow-hidden rounded-lg bg-[rgba(15,23,42,0.6)] backdrop-blur-sm border border-[rgba(120,120,180,0.2)] hover:border-blue-500/50 transition-all duration-300"
             >
-              <div className="aspect-video overflow-hidden relative">
+              <div className="h-40 overflow-hidden relative">
                 <Image
                   src={event.image}
                   alt={event.title}
                   fill
-                  className="object-contain group-hover:scale-110 transition-transform duration-300"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-contain group-hover:scale-105 transition-transform duration-300"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
                 />
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">{event.title}</h3>
-                <p className="text-blue-400 mb-4">{event.role} - {event.topic}</p>
-                <div className="flex items-center gap-4 text-gray-400">
+              <div className="p-4">
+                <h3 className="text-base font-semibold mb-1 line-clamp-1">{event.title}</h3>
+                <p className="text-blue-400 text-sm mb-2 line-clamp-1">{event.role} - {event.topic}</p>
+                <div className="flex flex-wrap items-center gap-3 text-gray-400 text-xs">
                   <div className="flex items-center gap-1">
-                    <Calendar className="w-4 h-4" />
+                    <Calendar className="w-3 h-3" />
                     <span>{event.date}</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <MapPin className="w-4 h-4" />
+                    <MapPin className="w-3 h-3" />
                     <span>{event.location}</span>
                   </div>
                 </div>

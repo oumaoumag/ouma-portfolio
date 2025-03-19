@@ -4,12 +4,18 @@ import GithubIcon from "../../../public/github-icon.svg";
 import LinkedinIcon from "../../../public/linkedin-icon.svg";
 import Link from "next/link";
 import Image from "next/image";
+import { FaEnvelope } from "react-icons/fa";
 
 const EmailSection = () => {
   const [emailSubmitted, setEmailSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setErrorMessage("");
+
     const data = {
       email: e.target.email.value,
       subject: e.target.subject.value,
@@ -30,12 +36,22 @@ const EmailSection = () => {
       body: JSONdata,
     };
 
-    const response = await fetch(endpoint, options);
-    const resData = await response.json();
+    try {
+      const response = await fetch(endpoint, options);
+      const resData = await response.json();
 
-    if (response.status === 200) {
-      console.log("Message sent.");
-      setEmailSubmitted(true);
+      if (response.status === 200) {
+        console.log("Message sent.");
+        setEmailSubmitted(true);
+      } else {
+        setErrorMessage("Failed to send message. Please try again.");
+        console.error("Failed to send message:", resData);
+      }
+    } catch (error) {
+      setErrorMessage("An error occurred. Please try again later.");
+      console.error("Error submitting form:", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -50,11 +66,16 @@ const EmailSection = () => {
           Let&apos;s Connect
         </h5>
         <p className="text-[#ADB7BE] mb-4 max-w-md">
-          {" "}
           I&apos;m currently looking for new opportunities, my inbox is always
           open. Whether you have a question or just want to say hi, I&apos;ll
           try my best to get back to you!
         </p>
+        
+        <div className="flex items-center space-x-2 text-[#ADB7BE] mb-4">
+          <FaEnvelope className="text-primary-500" />
+          <span>ouma.godwin10@gmail.com</span>
+        </div>
+        
         <div className="socials flex flex-row gap-2">
           <Link href="https://github.com/garveyshah">
             <Image src={GithubIcon} alt="Github Icon" />
@@ -66,9 +87,18 @@ const EmailSection = () => {
       </div>
       <div>
         {emailSubmitted ? (
-          <p className="text-green-500 text-sm mt-2">
-            Email sent successfully!
-          </p>
+          <div className="bg-[rgba(15,23,42,0.6)] backdrop-blur-sm p-6 rounded-xl border border-[rgba(120,120,180,0.2)] text-center">
+            <h3 className="text-xl font-semibold text-green-500 mb-2">Thank You!</h3>
+            <p className="text-white mb-4">
+              Your message has been sent successfully. I'll get back to you soon!
+            </p>
+            <button 
+              onClick={() => setEmailSubmitted(false)}
+              className="bg-primary-500 hover:bg-primary-600 text-white font-medium py-2 px-4 rounded-lg"
+            >
+              Send Another Message
+            </button>
+          </div>
         ) : (
           <form className="flex flex-col" onSubmit={handleSubmit}>
             <div className="mb-6">
@@ -84,7 +114,7 @@ const EmailSection = () => {
                 id="email"
                 required
                 className="bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5"
-                placeholder="jacob@google.com"
+                placeholder="your.email@example.com"
               />
             </div>
             <div className="mb-6">
@@ -113,15 +143,23 @@ const EmailSection = () => {
               <textarea
                 name="message"
                 id="message"
+                required
+                rows="4"
                 className="bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5"
                 placeholder="Let's talk about..."
               />
             </div>
+            {errorMessage && (
+              <p className="text-red-500 text-sm mb-4">{errorMessage}</p>
+            )}
             <button
               type="submit"
-              className="bg-primary-500 hover:bg-primary-600 text-white font-medium py-2.5 px-5 rounded-lg w-full"
+              disabled={isSubmitting}
+              className={`bg-primary-500 hover:bg-primary-600 text-white font-medium py-2.5 px-5 rounded-lg w-full transition-all duration-300 ${
+                isSubmitting ? "opacity-70 cursor-not-allowed" : ""
+              }`}
             >
-              Send Message
+              {isSubmitting ? "Sending..." : "Send Message"}
             </button>
           </form>
         )}

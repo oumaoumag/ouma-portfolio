@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <!-- Background with gradient -->
+  <rect width="800" height="600" fill="#1a1a1a" />
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#54AD64" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#54AD64" stop-opacity="0.3" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bgGradient)" />
+  
+  <!-- Project Title -->
+  <text x="400" y="70" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#FFFFFF" text-anchor="middle">Jam-Text</text>
+  <text x="400" y="110" font-family="Arial, sans-serif" font-size="20" fill="#CCCCCC" text-anchor="middle">Advanced Text Analysis Algorithm</text>
+  
+  <!-- Main Illustration: Text Analysis -->
+  
+  <!-- Text and Pattern Recognition Visualization -->
+  <g transform="translate(100, 150)">
+    <!-- Text Lines with Highlighted Patterns -->
+    <rect x="0" y="0" width="600" height="20" rx="3" fill="#333333" />
+    <rect x="0" y="30" width="600" height="20" rx="3" fill="#333333" />
+    <rect x="0" y="60" width="600" height="20" rx="3" fill="#333333" />
+    <rect x="0" y="90" width="600" height="20" rx="3" fill="#333333" />
+    <rect x="0" y="120" width="600" height="20" rx="3" fill="#333333" />
+    
+    <!-- Highlighted Pattern on Line 1 -->
+    <rect x="50" y="0" width="150" height="20" rx="3" fill="#54AD64" opacity="0.8" />
+    <!-- Highlighted Pattern on Line 3 -->
+    <rect x="300" y="60" width="150" height="20" rx="3" fill="#54AD64" opacity="0.8" />
+    <!-- Highlighted Pattern on Line 5 -->
+    <rect x="200" y="120" width="150" height="20" rx="3" fill="#54AD64" opacity="0.8" />
+    
+    <!-- Connecting Lines Between Similar Patterns -->
+    <path d="M 125 20 C 125 60, 375 60, 375 60" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-dasharray="5,5" />
+    <path d="M 375 80 C 375 120, 275 120, 275 120" stroke="#FFFFFF" stroke-width="2" fill="none" stroke-dasharray="5,5" />
+    
+    <!-- Algorithmic Processing Symbols -->
+    <circle cx="650" cy="10" r="15" fill="#4CA7FF" />
+    <circle cx="650" cy="70" r="15" fill="#4CA7FF" />
+    <circle cx="650" cy="130" r="15" fill="#4CA7FF" />
+    
+    <line x1="600" y1="10" x2="635" y2="10" stroke="#FFFFFF" stroke-width="2" />
+    <line x1="600" y1="70" x2="635" y2="70" stroke="#FFFFFF" stroke-width="2" />
+    <line x1="600" y1="130" x2="635" y2="130" stroke="#FFFFFF" stroke-width="2" />
+  </g>
+  
+  <!-- Algorithm Visualization -->
+  <g transform="translate(150, 300)">
+    <!-- Flow Diagram -->
+    <rect x="0" y="0" width="120" height="60" rx="10" fill="#4CA7FF" opacity="0.8" />
+    <text x="60" y="35" font-family="Arial, sans-serif" font-size="14" fill="#FFFFFF" text-anchor="middle">Text Input</text>
+    
+    <rect x="200" y="0" width="120" height="60" rx="10" fill="#4CA7FF" opacity="0.8" />
+    <text x="260" y="35" font-family="Arial, sans-serif" font-size="14" fill="#FFFFFF" text-anchor="middle">Tokenization</text>
+    
+    <rect x="400" y="0" width="120" height="60" rx="10" fill="#4CA7FF" opacity="0.8" />
+    <text x="460" y="35" font-family="Arial, sans-serif" font-size="14" fill="#FFFFFF" text-anchor="middle">Pattern Analysis</text>
+    
+    <rect x="200" y="120" width="120" height="60" rx="10" fill="#4CA7FF" opacity="0.8" />
+    <text x="260" y="155" font-family="Arial, sans-serif" font-size="14" fill="#FFFFFF" text-anchor="middle">Optimization</text>
+    
+    <!-- Connecting Arrows -->
+    <path d="M 120 30 L 200 30" stroke="#FFFFFF" stroke-width="3" fill="none" marker-end="url(#arrowhead)" />
+    <path d="M 320 30 L 400 30" stroke="#FFFFFF" stroke-width="3" fill="none" marker-end="url(#arrowhead)" />
+    <path d="M 460 60 L 460 90 L 320 90 L 320 120" stroke="#FFFFFF" stroke-width="3" fill="none" marker-end="url(#arrowhead)" />
+    <path d="M 200 150 L 60 150 L 60 60" stroke="#FFFFFF" stroke-width="3" fill="none" marker-end="url(#arrowhead)" />
+    
+    <!-- Arrowhead definition -->
+    <defs>
+      <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#FFFFFF" />
+      </marker>
+    </defs>
+  </g>
+  
+  <!-- Tags -->
+  <g transform="translate(400, 530)">
+    <rect x="-280" y="0" width="100" height="30" rx="15" fill="#54AD64" opacity="0.8" />
+    <text x="-230" y="20" font-family="Arial, sans-serif" font-size="14" fill="#FFFFFF" text-anchor="middle">Algorithms</text>
+    
+    <rect x="-170" y="0" width="80" height="30" rx="15" fill="#4CA7FF" opacity="0.8" />
+    <text x="-130" y="20" font-family="Arial, sans-serif" font-size="14" fill="#FFFFFF" text-anchor="middle">Go</text>
+    
+    <rect x="-80" y="0" width="150" height="30" rx="15" fill="#FF7E33" opacity="0.8" />
+    <text x="-5" y="20" font-family="Arial, sans-serif" font-size="14" fill="#FFFFFF" text-anchor="middle">Pattern Recognition</text>
+  </g>
+</svg> 
