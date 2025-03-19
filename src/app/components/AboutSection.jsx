@@ -8,10 +8,10 @@ const AboutContent = {
   about: (
     <div className="text-gray-300">
       <p className="mb-3">
-        I'm a passionate software engineer with expertise in building robust and efficient systems. My journey has taken me from developing traditional web applications to exploring the cutting-edge world of Web3 and blockchain technologies.
+        I&apos;m a passionate software engineer with expertise in building robust and efficient systems. My journey has taken me from developing traditional web applications to exploring the cutting-edge world of Web3 and blockchain technologies.
       </p>
       <p>
-        I've created sophisticated applications like MilkNet dApp for dairy supply chain management and SuccorTrail for food aid distribution. I also enjoy building language interpreters like the Kisumu Language and working with text analysis algorithms in my Jam-Text project.
+        I&apos;ve created sophisticated applications like MilkNet dApp for dairy supply chain management and SuccorTrail for food aid distribution. I also enjoy building language interpreters like the Kisumu Language and working with text analysis algorithms in my Jam-Text project.
       </p>
     </div>
   ),

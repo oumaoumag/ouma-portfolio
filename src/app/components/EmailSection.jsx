@@ -90,7 +90,7 @@ const EmailSection = () => {
           <div className="bg-[rgba(15,23,42,0.6)] backdrop-blur-sm p-6 rounded-xl border border-[rgba(120,120,180,0.2)] text-center">
             <h3 className="text-xl font-semibold text-green-500 mb-2">Thank You!</h3>
             <p className="text-white mb-4">
-              Your message has been sent successfully. I'll get back to you soon!
+              Your message has been sent successfully. I&apos;ll get back to you soon!
             </p>
             <button 
               onClick={() => setEmailSubmitted(false)}
@@ -146,7 +146,7 @@ const EmailSection = () => {
                 required
                 rows="4"
                 className="bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5"
-                placeholder="Let's talk about..."
+                placeholder="Let&apos;s talk about..."
               />
             </div>
             {errorMessage && (
