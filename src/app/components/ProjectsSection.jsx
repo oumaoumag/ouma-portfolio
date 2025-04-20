@@ -4,113 +4,142 @@ import ProjectCard from "./ProjectCard";
 import ProjectTag from "./ProjectTag";
 import { motion, useInView, useAnimation } from "framer-motion";
 
-const projectsData = [
-  {
-    id: 1,
-    title: "MilkNet dApp",
-    description: "A blockchain-powered dairy supply chain platform enhancing transparency, eliminating intermediaries, and automating order management in the dairy industry using Web3 technologies.",
-    image: "/images/projects/milknet.png",
-    tag: ["All", "Web3", "React"],
-    gitUrl: "https://github.com/oumaoumag/milknet-dapp.git",
-    previewUrl: "https://milknet-dapp.vercel.app",
-    element: "water",
-  },
-  {
-    id: 2,
-    title: "SuccorTrail",
-    description: "A blockchain-based solution transforming food aid distribution with enhanced transparency, efficiency, and accountability to combat corruption and waste in humanitarian efforts.",
-    image: "/images/projects/succortrail.svg",
-    tag: ["All", "Web3", "Go"],
-    gitUrl: "https://github.com/SuccorTrail/SuccorTrail",
-    previewUrl: "/",
-    element: "fire",
-  },
-  {
-    id: 3,
-    title: "Jam-Text",
-    description: "An advanced text analysis algorithm project focusing on efficient text processing, pattern recognition, and optimization techniques for improved computational text handling.",
-    image: "/images/projects/jamtext.svg",
-    tag: ["All", "Algorithms", "Go", "Data"],
-    gitUrl: "https://github.com/oumaoumag/Jam-Text",
-    previewUrl: "/",
-    element: "earth",
-  },
-  {
-    id: 4,
-    title: "Kisumu Language Interpreter",
-    description: "A toy interpreted programming language built in Go featuring tokenization, abstract syntax trees, and parsing. Implements REPL, support for variables, functions, and basic data structures.",
-    image: "/images/projects/kisumu.svg",
-    tag: ["All", "Systems", "Go", "Interpreter"],
-    gitUrl: "https://github.com/yourusername/kisumu",
-    previewUrl: "/",
-    element: "earth",
-  },
-  {
-    id: 5,
-    title: "Linear Stats Modeling Tool",
-    description: "Statistical modeling and linear regression tool for data prediction and probability ranges, built with Go. Implements advanced algorithms for data analysis and forecasting.",
-    image: "/images/projects/linear-stats.png",
-    tag: ["All", "Algorithms", "Go", "Data"],
-    gitUrl: "https://github.com/yourusername/linear-stats",
-    previewUrl: "/",
-    element: "water",
-  },
-  {
-    id: 6,
-    title: "Groupie Trackers",
-    description: "A Go-based web application that displays artist data in a grid layout with interactive elements. Features efficient data structures and optimized API integrations.",
-    image: "/images/projects/groupie.png",
-    tag: ["All", "Web", "Go", "API"],
-    gitUrl: "https://github.com/yourusername/groupie-trackers",
-    previewUrl: "/",
-    element: "fire",
-  },
-  {
-    id: 7,
-    title: "Code Ujuzi Learning Platform",
-    description: "AI-powered coding app that accelerates learning by providing real-time translations into African languages, utilizing Llama models to enhance understanding in software development.",
-    image: "/images/projects/small_logo.png",
-    tag: ["All", "Web", "AI", "Go"],
-    gitUrl: "/",
-    previewUrl: "https://codeujuzi-github-io.onrender.com/",
-    element: "air",
-  },
-  {
-    id: 8,
-    title: "Portfolio Website",
-    description: "This portfolio website built with Next.js and React, showcasing my projects and professional journey with modern design principles.",
-    image: "/images/projects/1.png",
-    tag: ["All", "Web", "React"],
-    gitUrl: "https://github.com/yourusername/ouma-portfolio",
-    previewUrl: "/",
-    element: "water",
-  },
-];
 
 const ProjectsSection = () => {
+  // state for projects data
+  const [projects, setProjects] = useState([]);
+  const [filteredProjects, setFilteredProjects] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [availableTags, setAvailableTags] = useState(["All"]);
+
+  // State for selected tag
   const [tag, setTag] = useState("All");
+
+  // Animation states
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const controls = useAnimation();
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
+  // Fetch projects from Github API
   useEffect(() => {
     if (isInView) {
       controls.start("visible");
     }
   }, [isInView, controls]);
 
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        setIsLoading(true);
+        console.log('Fetching projects...'); // Debug
+
+        // Use our API route by default, with fallback to direct GitHub API
+        const useApiRoute = true; // Set to true to use our API route
+
+        let data = [];
+
+        try {
+          // First try our API route
+          if (useApiRoute) {
+            console.log('Fetching from API route...');
+            const response = await fetch("/api/github");
+
+            if (!response.ok) {
+              throw new Error(`API route failed: ${response.status}`);
+            }
+
+            data = await response.json();
+            console.log('API Response:', data.length, 'projects'); // Debug
+          }
+        } catch (apiError) {
+          console.error('API route error:', apiError);
+          // If API route fails, fall back to direct GitHub API
+          console.log('Falling back to direct GitHub API...');
+
+          // Direct fetch to GitHub API as fallback
+          const username = 'oumaoumag'; // Your GitHub username from env
+          const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
+
+          if (!response.ok) {
+            throw new Error(`Failed to fetch directly from GitHub: ${response.status}`);
+          }
+
+          const repos = await response.json();
+          console.log('Direct GitHub API Response:', repos.length, 'repositories'); // Debug
+
+          // Process repositories similar to our API
+          data = repos
+            .filter(repo => !repo.fork && !repo.archived)
+            .map(repo => ({
+              id: repo.id,
+              title: repo.name.replace(/-/g, ' ').replace(/_/g, ' '),
+              description: repo.description || 'No description provided',
+              image: '/images/projects/default.png',
+              tags: ['All', repo.language].filter(Boolean),
+              tag: ['All', repo.language].filter(Boolean),
+              gitUrl: repo.html_url,
+              previewUrl: repo.homepage || repo.html_url,
+              element: 'earth',
+              stars: repo.stargazers_count,
+              forks: repo.forks_count,
+              language: repo.language,
+              updatedAt: repo.updated_at
+            }));
+        }
+
+        console.log('Final data:', data.length, 'projects'); // Debug
+        setProjects(data);
+        setFilteredProjects(data);
+
+        // Extract unique tags from all projects
+        const uniqueTags = new Set(["All"]);
+        // Extract tags from the data we just received
+
+        data.forEach(project => {
+          // Check if project has tags or tag property
+          const projectTags = project.tags || project.tag || [];
+          if (Array.isArray(projectTags)) {
+            projectTags.forEach(t => {
+              if (t) uniqueTags.add(t);
+            });
+          }
+        });
+
+        console.log('Available tags:', Array.from(uniqueTags)); // Debug
+        setAvailableTags(Array.from(uniqueTags));
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  // Filter's projects when tags changes
+  useEffect(() => {
+    console.log('Filtering projects. Tag:', tag, 'Projects:', projects.length); // Debug: Log filtering
+    if (tag === "All") {
+      setFilteredProjects(projects);
+    } else {
+      setFilteredProjects(projects.filter((project) => {
+        // Check both tags and tag properties
+        const projectTags = project.tags || project.tag || [];
+        return Array.isArray(projectTags) && projectTags.includes(tag);
+      }));
+    }
+    console.log('Filtered projects:', filteredProjects.length); // Debug: Log filtered results
+
+  }, [tag, projects]);
+
   const handleTagChange = (newTag) => {
     setTag(newTag);
   };
 
-  const filteredProjects = projectsData.filter((project) => {
-    // Special handling for Web3/Blockchain tag
-    if (tag === "Web3") {
-      return project.tag.includes("Web3") || project.tag.includes("Blockchain");
-    }
-    return project.tag.includes(tag);
-  });
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -124,14 +153,14 @@ const ProjectsSection = () => {
 
   const cardVariants = {
     hidden: { y: 50, opacity: 0 },
-    visible: { 
-      y: 0, 
+    visible: {
+      y: 0,
       opacity: 1,
-      transition: { 
-        type: "spring", 
-        stiffness: 100, 
+      transition: {
+        type: "spring",
+        stiffness: 100,
         damping: 12
-      } 
+      }
     },
   };
 
@@ -146,6 +175,19 @@ const ProjectsSection = () => {
     }
   };
 
+  // Assign colors to tags
+  const getTagColor = (tagName) => {
+    if (tagName === "All") return "primary";
+    // Fixed inconsistent capitalization of "web3" vs "Web3"
+    if (tagName === "Web3" || tagName === "Solidity") return "fire";
+    if (tagName === "Systems" || tagName === "TypeScript" || tagName === "JavaScript") return "water";
+    if (tagName === "Algorithms" || tagName === "ML" || tagName === "Interpreter") return "air";
+    return "primary"; //Default color
+  };
+
+  // Debug: Log render state
+  console.log('Render state:', { isLoading, error, projectsCount: filteredProjects.length });
+
   return (
     <section id="projects">
       <div className="relative">
@@ -154,8 +196,8 @@ const ProjectsSection = () => {
           <div className="w-1 h-20 bg-gradient-to-b from-primary-500 to-transparent"></div>
         </div>
       </div>
-      
-      <motion.h2 
+
+      <motion.h2
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
@@ -163,58 +205,43 @@ const ProjectsSection = () => {
       >
         My Projects
       </motion.h2>
-      
-      <motion.div 
+
+      {/* LOading state */}
+      {isLoading && (
+        <div className="text-center py-10">
+          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary-500 border-r-transparent align-[0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"></div>
+          <p className="mt-2 text-white">Loading projects...</p>
+        </div>
+      )}
+
+      {/* Error state */}
+      {error && (
+        <div className="text-center py-10">
+          <p className="text-red-500">Error: {error}</p>
+          <p className="text-white mt-2">Couldnt't load projects. Please try again later.</p>
+        </div>
+      )}
+
+      {/* Content when loaded */}
+      {!isLoading && !error && (
+        <>
+          <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.3 }}
-        className="text-white flex flex-wrap justify-center items-center gap-1.5 py-4"
-      >
-        <ProjectTag
+            className="text-white flex flex-wrap justify-center items-center gap-1.5 py-4">
+            {availableTags.map((tagName) => (
+              <ProjectTag
+                key={tagName}
           onClick={handleTagChange}
-          name="All"
-          isSelected={tag === "All"}
-          color="primary"
-        />
-        <ProjectTag
-          onClick={handleTagChange}
-          name="Web"
-          isSelected={tag === "Web"}
-          color="secondary"
-        />
-        <ProjectTag
-          onClick={handleTagChange}
-          name="Web3"
-          isSelected={tag === "Web3"}
-          color="fire"
-        />
-        <ProjectTag
-          onClick={handleTagChange}
-          name="Systems"
-          isSelected={tag === "Systems"}
-          color="earth"
-        />
-        <ProjectTag
-          onClick={handleTagChange}
-          name="Algorithms"
-          isSelected={tag === "Algorithms"}
-          color="water"
-        />
-        <ProjectTag
-          onClick={handleTagChange}
-          name="Go"
-          isSelected={tag === "Go"}
-          color="primary"
-        />
-        <ProjectTag
-          onClick={handleTagChange}
-          name="Interpreter"
-          isSelected={tag === "Interpreter"}
-          color="air"
-        />
-      </motion.div>
-      
-      <motion.ul 
+                name={tagName}
+                isSelected={tag === tagName}
+                color={getTagColor(tagName)}
+              />
+            ))}
+          </motion.div>
+
+          <motion.ul
         ref={ref}
         variants={containerVariants}
         initial="hidden"
@@ -223,7 +250,7 @@ const ProjectsSection = () => {
       >
         {filteredProjects.map((project, index) => (
           <motion.li
-            key={index}
+            key={project.id}
             variants={cardVariants}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
@@ -231,7 +258,7 @@ const ProjectsSection = () => {
           >
             {/* Element indicator dot */}
             <div className={`absolute -top-1 -right-1 w-2 h-2 rounded-full z-10 ${getElementColor(project.element)}`}></div>
-            
+
             {/* Glow effect on hover */}
             {hoveredIndex === index && (
               <motion.div
@@ -243,7 +270,7 @@ const ProjectsSection = () => {
                 transition={{ duration: 0.2 }}
               />
             )}
-            
+
             <ProjectCard
               key={project.id}
               title={project.title}
@@ -256,6 +283,8 @@ const ProjectsSection = () => {
           </motion.li>
         ))}
       </motion.ul>
+        </>
+      )}
     </section>
   );
 };
