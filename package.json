@@ -8,8 +8,9 @@
     "start": "next start",
     "lint": "next lint"
   },
- "dependencies": {
+  "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "@octokit/rest": "^21.1.1",
     "lucide-react": "^0.464.0",
     "next": "^15.0.3",
     "react": "^18.3.1",
