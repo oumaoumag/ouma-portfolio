@@ -54,7 +54,7 @@ function mapRepoToProject(repo) {
     id: repo.id,
     title: repo.name.replace(/-/g, " ").replace(/_/g, " "),
     description: repo.description || "No description provided",
-    image: `/images/projects/default.png`, // Default image
+    image: `public/images/projects/linear-stats.png`, // Default image
     tag: [...new Set(tags)], // Remove duplicates
     gitUrl: repo.html_url,
     previewUrl: repo.homepage || repo.html_url,

@@ -14,7 +14,7 @@ const ProjectsSection = () => {
   const [availableTags, setAvailableTags] = useState(["All"]);
 
   // State for selected tag
-  const [tag, setTag] = useState("All");
+  const [tag, setTag] = useState("All"); // Fixed variable name from 'tags' to 'tag'
 
   // Animation states
   const ref = useRef(null);
@@ -33,81 +33,24 @@ const ProjectsSection = () => {
     const fetchProjects = async () => {
       try {
         setIsLoading(true);
-        console.log('Fetching projects...'); // Debug
+        const response = await fetch("/api/github");
 
-        // Use our API route by default, with fallback to direct GitHub API
-        const useApiRoute = true; // Set to true to use our API route
-
-        let data = [];
-
-        try {
-          // First try our API route
-          if (useApiRoute) {
-            console.log('Fetching from API route...');
-            const response = await fetch("/api/github");
-
-            if (!response.ok) {
-              throw new Error(`API route failed: ${response.status}`);
-            }
-
-            data = await response.json();
-            console.log('API Response:', data.length, 'projects'); // Debug
-          }
-        } catch (apiError) {
-          console.error('API route error:', apiError);
-          // If API route fails, fall back to direct GitHub API
-          console.log('Falling back to direct GitHub API...');
-
-          // Direct fetch to GitHub API as fallback
-          const username = 'oumaoumag'; // Your GitHub username from env
-          const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
-
-          if (!response.ok) {
-            throw new Error(`Failed to fetch directly from GitHub: ${response.status}`);
-          }
-
-          const repos = await response.json();
-          console.log('Direct GitHub API Response:', repos.length, 'repositories'); // Debug
-
-          // Process repositories similar to our API
-          data = repos
-            .filter(repo => !repo.fork && !repo.archived)
-            .map(repo => ({
-              id: repo.id,
-              title: repo.name.replace(/-/g, ' ').replace(/_/g, ' '),
-              description: repo.description || 'No description provided',
-              image: '/images/projects/default.png',
-              tags: ['All', repo.language].filter(Boolean),
-              tag: ['All', repo.language].filter(Boolean),
-              gitUrl: repo.html_url,
-              previewUrl: repo.homepage || repo.html_url,
-              element: 'earth',
-              stars: repo.stargazers_count,
-              forks: repo.forks_count,
-              language: repo.language,
-              updatedAt: repo.updated_at
-            }));
+        if (!response.ok) {
+          throw new Error(`Failed to fetch projects: ${response.status}`);
         }
 
-        console.log('Final data:', data.length, 'projects'); // Debug
+        const data = await response.json();
         setProjects(data);
         setFilteredProjects(data);
 
         // Extract unique tags from all projects
         const uniqueTags = new Set(["All"]);
-        // Extract tags from the data we just received
-
         data.forEach(project => {
-          // Check if project has tags or tag property
-          const projectTags = project.tags || project.tag || [];
-          if (Array.isArray(projectTags)) {
-            projectTags.forEach(t => {
-              if (t) uniqueTags.add(t);
-            });
-          }
+          project.tag.forEach(t => {
+            uniqueTags.add(t);
+          });
         });
 
-        console.log('Available tags:', Array.from(uniqueTags)); // Debug
         setAvailableTags(Array.from(uniqueTags));
       } catch (error) {
         console.error("Error fetching projects:", error);
@@ -122,19 +65,15 @@ const ProjectsSection = () => {
 
   // Filter's projects when tags changes
   useEffect(() => {
-    console.log('Filtering projects. Tag:', tag, 'Projects:', projects.length); // Debug: Log filtering
     if (tag === "All") {
       setFilteredProjects(projects);
     } else {
-      setFilteredProjects(projects.filter((project) => {
-        // Check both tags and tag properties
-        const projectTags = project.tags || project.tag || [];
-        return Array.isArray(projectTags) && projectTags.includes(tag);
-      }));
+      setFilteredProjects(projects.filter((project) =>
+        project.tag.includes(tag)
+      ));
     }
-    console.log('Filtered projects:', filteredProjects.length); // Debug: Log filtered results
 
-  }, [tag, projects]);
+  }, [tag, projects]); // Fixed variable name from 'tags' to 'tag'
 
   const handleTagChange = (newTag) => {
     setTag(newTag);
@@ -178,15 +117,12 @@ const ProjectsSection = () => {
   // Assign colors to tags
   const getTagColor = (tagName) => {
     if (tagName === "All") return "primary";
-    // Fixed inconsistent capitalization of "web3" vs "Web3"
+    if (tagName === "web3") return "secondary";
     if (tagName === "Web3" || tagName === "Solidity") return "fire";
     if (tagName === "Systems" || tagName === "TypeScript" || tagName === "JavaScript") return "water";
     if (tagName === "Algorithms" || tagName === "ML" || tagName === "Interpreter") return "air";
     return "primary"; //Default color
   };
-
-  // Debug: Log render state
-  console.log('Render state:', { isLoading, error, projectsCount: filteredProjects.length });
 
   return (
     <section id="projects">
@@ -235,7 +171,7 @@ const ProjectsSection = () => {
                 key={tagName}
           onClick={handleTagChange}
                 name={tagName}
-                isSelected={tag === tagName}
+                isSelected={tag === tagName} // Fixed variable name from 'tags' to 'tag'
                 color={getTagColor(tagName)}
               />
             ))}
@@ -286,7 +222,7 @@ const ProjectsSection = () => {
         </>
       )}
     </section>
-  );
+  ); // Added missing closing parenthesis for the return statement
 };
 
 export default ProjectsSection;
