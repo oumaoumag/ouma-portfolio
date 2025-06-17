@@ -1,6 +1,6 @@
 # Ouma² Portfolio 🚀
 
-A modern, responsive portfolio website built with Next.js, showcasing my professional journey and technical expertise. Visit the live site at [ouma-portfolio-g46m.vercel.app](https://ouma-portfolio-g46m.vercel.app/)
+A modern, responsive portfolio website built with Next.js, showcasing my professional journey and technical expertise. Visit the live site at [ouma-portfolio-g46m.vercel.app](https://ouma-portfolio-six.vercel.app/)
 
 ![Portfolio Preview](public/images/projects/1.png)
 
